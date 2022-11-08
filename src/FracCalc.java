@@ -1,8 +1,14 @@
+import java.util.Scanner;
+
 public class FracCalc {
 
     public static void main(String[] args) 
     {
         // TODO: Read the input from the user and call produceAnswer with an equation
+        System.out.println("Input your fraction expression");
+        Scanner in = new Scanner(System.in);
+        String fracExpression = in.nextLine();
+
 
     }
     
