@@ -8,7 +8,12 @@ public class FracCalc {
         System.out.println("Input your fraction expression");
         Scanner in = new Scanner(System.in);
         String fracExpression = in.nextLine();
-        System.out.println(produceAnswer(fracExpression));
+        Scanner seperate = new Scanner(fracExpression);
+        seperate.useDelimiter("_");
+        System.out.println(seperate.next());
+        System.out.println(seperate.next());
+
+        // System.out.println(produceAnswer(fracExpression));
 
 
     }
@@ -21,12 +26,12 @@ public class FracCalc {
     //        
     // The function should return the result of the fraction after it has been calculated
     //      e.g. return ==> "1_1/4"
-    public static String produceAnswer(String input)
+    public static String produceAnswer(String expression)
     {
-        Scanner in1 = new Scanner(input);
-        String firstFrac = in1.next();
-        String operand = in1.next();
-        String secondFrac = in1.next();
+        Scanner input = new Scanner(expression);
+        String firstFrac = input.next();
+        String operand = input.next();
+        String secondFrac = input.next();
 
         // TODO: Implement this function to produce the solution to the input
         
