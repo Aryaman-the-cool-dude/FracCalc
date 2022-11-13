@@ -7,18 +7,16 @@ public class FracCalc {
         // TODO: Read the input from the user and call produceAnswer with an equation
         System.out.println("Input your fraction expression:");
         Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        System.out.println(produceAnswer(input));
-//        boolean running = true;
-//        while (running) {
-//            System.out.println("Input your fraction expression:");
-//            String input = in.nextLine();
-//            if (input.equals("quit")) {
-//                running = false;
-//            }
-//            System.out.println(produceAnswer(input));
+        boolean running = true;
+        while (running) {
+            System.out.println("Input your fraction expression:");
+            String input = in.nextLine();
+            if (input.equals("quit")) {
+                break;
+            }
+            System.out.println(produceAnswer(input));
 
-    // }
+     }
 
     }
     
