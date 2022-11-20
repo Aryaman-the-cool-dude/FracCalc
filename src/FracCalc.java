@@ -39,12 +39,20 @@ public class FracCalc {
         // parses firstFrac and secondFrac and returns parsedSecondFrac s
         String parsedSecondFrac = parseFraction(secondFrac);
         String parsedFirstFrac = parseFraction(firstFrac);
-        return parsedSecondFrac;
-
-        // splits operands into whole #, numerator, denominator
-        // String parsedfirstFrac = FracCalc.splitter(firstFrac);
-        // String parsedsecondFrac = FracCalc.splitter(secondFrac);
-        // return parsedsecondFrac;
+        if (operand.equals("+")) {
+            return add(parsedFirstFrac, parsedSecondFrac);
+        }
+        else if (operand.equals("*")) {
+            return multiply(parsedFirstFrac, parsedSecondFrac);
+        }
+        else if (operand.equals("-")) {
+            return subtract(parsedFirstFrac, parsedSecondFrac);
+        }
+        else if (operand.equals("/")) {
+            return divide(parsedFirstFrac, parsedSecondFrac);
+        } else {
+            return divide(parsedFirstFrac, parsedSecondFrac);
+        }
 
 
         // TODO: Implement this function to produce the solution to the input
@@ -82,7 +90,7 @@ public class FracCalc {
             denominator = fractionSplitter.nextInt();
         }
 
-        String final_parsed = "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
+        String final_parsed = "whole: " + wholeNum + " numerator: " + numerator + " denominator: " + denominator;
         return final_parsed;
 
 
@@ -90,5 +98,98 @@ public class FracCalc {
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
+    public static String toImproperFraction(String parsedFraction) {
+        // changes the fraction to an improper fraction for ease of use when evaluating
+        // seperate numerator, denominator and wholeNum
+        String improperFrac = "";
+        Scanner seperator = new Scanner(parsedFraction);
+        // taking numerator, denominator and wholeNum and making an improperfraction
+        seperator.next();
+        int wholeNum = seperator.nextInt();
+        seperator.next();
+        int numerator = seperator.nextInt();
+        seperator.next();
+        int denominator = seperator.nextInt();
+        if (wholeNum < 0) {
+            improperFrac = (wholeNum*denominator + numerator*-1) + "/" + denominator;
+        }
+        else {
+            improperFrac = (wholeNum*denominator + numerator) + "/" + denominator;
+        }
+
+
+        return improperFrac;
+
+
+    }
+    public static String add(String parsedFirstFrac, String parsedSecondFrac) {
+        // gets improper fractions
+        String improperFirstFrac = toImproperFraction(parsedFirstFrac);
+        String improperSecondFrac = toImproperFraction(parsedSecondFrac);
+        // 4/5 + 2/3
+        // seperates first and second fractions into numerator and denominator
+        Scanner seperator = new Scanner(improperFirstFrac);
+        seperator.useDelimiter("/");
+        int firstFracNumerator = seperator.nextInt();
+        int firstFracDenominator = seperator.nextInt();
+        seperator = new Scanner(improperSecondFrac);
+        seperator.useDelimiter("/");
+        int secondFracNumerator = seperator.nextInt();
+        int secondFracDenominator = seperator.nextInt();
+        String fractionSum = (firstFracNumerator*secondFracDenominator + secondFracNumerator*firstFracDenominator) + "/" + (firstFracDenominator*secondFracDenominator);
+        return fractionSum;
+    }
+    public static String subtract(String parsedFirstFrac, String parsedSecondFrac) {
+        // gets improper fractions
+        String improperFirstFrac = toImproperFraction(parsedFirstFrac);
+        String improperSecondFrac = toImproperFraction(parsedSecondFrac);
+        // 4/5 + 2/3
+        // seperates first and second fractions into numerator and denominator
+        Scanner seperator = new Scanner(improperFirstFrac);
+        seperator.useDelimiter("/");
+        int firstFracNumerator = seperator.nextInt();
+        int firstFracDenominator = seperator.nextInt();
+        seperator = new Scanner(improperSecondFrac);
+        seperator.useDelimiter("/");
+        int secondFracNumerator = seperator.nextInt();
+        int secondFracDenominator = seperator.nextInt();
+        String fractionSum = (firstFracNumerator*secondFracDenominator - secondFracNumerator*firstFracDenominator) + "/" + (firstFracDenominator*secondFracDenominator);
+        return fractionSum;
+    }
+    public static String divide(String parsedFirstFrac, String parsedSecondFrac) {
+        // gets improper fractions
+        String improperFirstFrac = toImproperFraction(parsedFirstFrac);
+        String improperSecondFrac = toImproperFraction(parsedSecondFrac);
+        // seperates first and second fractions into numerator and denominator
+        Scanner seperator = new Scanner(improperFirstFrac);
+        seperator.useDelimiter("/");
+        int firstFracNumerator = seperator.nextInt();
+        int firstFracDenominator = seperator.nextInt();
+        seperator = new Scanner(improperSecondFrac);
+        seperator.useDelimiter("/");
+        int secondFracNumerator = seperator.nextInt();
+        int secondFracDenominator = seperator.nextInt();
+        // TODO: performs division
+        String fractionDivision = (firstFracNumerator*secondFracDenominator) + "/" + (firstFracDenominator*secondFracNumerator);
+        return fractionDivision;
+
+    }
+    public static String multiply(String parsedFirstFrac, String parsedSecondFrac) {
+        // gets improper fractions
+        String improperFirstFrac = toImproperFraction(parsedFirstFrac);
+        String improperSecondFrac = toImproperFraction(parsedSecondFrac);
+        // seperates first and second fractions into numerator and denominator
+        Scanner seperator = new Scanner(improperFirstFrac);
+        seperator.useDelimiter("/");
+        int firstFracNumerator = seperator.nextInt();
+        int firstFracDenominator = seperator.nextInt();
+        seperator = new Scanner(improperSecondFrac);
+        seperator.useDelimiter("/");
+        int secondFracNumerator = seperator.nextInt();
+        int secondFracDenominator = seperator.nextInt();
+        // TODO: performs multiplication
+        String fractionMultiplication  = (firstFracNumerator*secondFracNumerator) + "/" + (firstFracDenominator*secondFracDenominator);
+        return fractionMultiplication;
+    }
 
 }
