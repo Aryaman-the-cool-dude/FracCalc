@@ -36,7 +36,7 @@ public class FracCalc {
         String operand = operands.next();
         // gets secondFrac
         String secondFrac = operands.next();
-        // parses firstFrac and secondFrac and returns parsedSecondFrac
+        // parses firstFrac and secondFrac and returns parsedSecondFrac s
         String parsedSecondFrac = parseFraction(secondFrac);
         String parsedFirstFrac = parseFraction(firstFrac);
         return parsedSecondFrac;
