@@ -5,7 +5,6 @@ public class FracCalc {
     public static void main(String[] args)
     {
         // TODO: Read the input from the user and call produceAnswer with an equation
-        System.out.println("Input your fraction expression:");
         Scanner in = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -37,9 +36,10 @@ public class FracCalc {
         String operand = operands.next();
         // gets secondFrac
         String secondFrac = operands.next();
-        // returns secondFrac
-        return splitter(secondFrac);
-
+        // parses firstFrac and secondFrac and returns parsedSecondFrac
+        String parsedSecondFrac = parseFraction(secondFrac);
+        String parsedFirstFrac = parseFraction(firstFrac);
+        return parsedSecondFrac;
 
         // splits operands into whole #, numerator, denominator
         // String parsedfirstFrac = FracCalc.splitter(firstFrac);
@@ -49,7 +49,7 @@ public class FracCalc {
 
         // TODO: Implement this function to produce the solution to the input
     }
-    public static String splitter(String operand) {
+    public static String parseFraction(String operand) {
         Scanner splitter = new Scanner(operand);
         int wholeNum = 0;
         int numerator = 0;
@@ -71,7 +71,10 @@ public class FracCalc {
             wholeNum = splitter.nextInt();
             numerator = 0;
             denominator = 1;
-        } else if (splitter.hasNext()) {
+
+        // TODO: checks if its in this format: 27/21
+        }
+        else if (splitter.hasNext()) {
             String fraction = splitter.next();
             Scanner fractionSplitter = new Scanner(fraction);
             fractionSplitter.useDelimiter("/");
@@ -81,18 +84,6 @@ public class FracCalc {
 
         String final_parsed = "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
         return final_parsed;
-        // TODO: checks if its in this format: 27/21
-
-        // wholeNum = Math.abs(wholeNum);
-        // String fraction = splitter.next();
-        // Scanner fractionSplitter = new Scanner(fraction);
-        // fractionSplitter.useDelimiter("/");
-        // int numerator = fractionSplitter.nextInt();
-        // numerator = Math.abs(numerator);
-        // int denominator = fractionSplitter.nextInt();
-        // denominator = Math.abs(denominator);
-        // String final_parsed = "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
-        // return final_parsed;
 
 
 
