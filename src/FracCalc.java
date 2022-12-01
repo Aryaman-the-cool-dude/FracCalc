@@ -49,7 +49,7 @@ public class FracCalc {
             return subtract(parsedFirstFrac, parsedSecondFrac);
         }
         else if (operand.equals("/")) {
-            return divide(parsedFirstFrac, parsedSecondFrac);
+            return simplifyFraction(divide(parsedFirstFrac, parsedSecondFrac));
         } else {
             return divide(parsedFirstFrac, parsedSecondFrac);
         }
@@ -116,8 +116,6 @@ public class FracCalc {
         else {
             improperFrac = (wholeNum*denominator + numerator) + "/" + denominator;
         }
-
-
         return improperFrac;
 
 
@@ -191,5 +189,42 @@ public class FracCalc {
         String fractionMultiplication  = (firstFracNumerator*secondFracNumerator) + "/" + (firstFracDenominator*secondFracDenominator);
         return fractionMultiplication;
     }
+    public static int simplifyFraction(String fraction) {
+        Scanner splitter = new Scanner(fraction);
+        splitter.useDelimiter("/");
+        int numerator = splitter.nextInt();
+        int denominator = splitter.nextInt();
+        int gcd = getGCD(numerator, denominator);
+        return gcd;
 
+    }
+    public static int getGCD(int x, int y) {
+        String xFactors = "";
+        String yFactors = "";
+        // gets factors of x
+        for (int i = 1; i < x; i++) {
+            if (x % i == 0) {
+                xFactors = xFactors + i;
+            }
+        }
+        // gets factors of y
+        for (int i = 1; i < y; i++) {
+            if (y % i == 0) {
+                yFactors = yFactors + i;
+            }
+        }
+        int gcd = 0;
+        for (int i = 1; i < x; i++) {
+            // checks if xFactors is in yFactors
+            if ((yFactors.indexOf(xFactors.charAt(i)) != -1)) {
+                if (xFactors.charAt(i) > gcd) {
+                    gcd = xFactors.charAt(i);
+                }
+            }
+        }
+        return gcd;
+        // checks for common factors between x and y
+
+
+    }
 }
