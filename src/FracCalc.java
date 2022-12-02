@@ -39,20 +39,22 @@ public class FracCalc {
         // parses firstFrac and secondFrac and returns parsedSecondFrac s
         String parsedSecondFrac = parseFraction(secondFrac);
         String parsedFirstFrac = parseFraction(firstFrac);
+        // return parsedFirstFrac;
         if (operand.equals("+")) {
-            return add(parsedFirstFrac, parsedSecondFrac);
+            return FracCalc.simplifyFraction(add(parsedFirstFrac, parsedSecondFrac));
         }
         else if (operand.equals("*")) {
-            return multiply(parsedFirstFrac, parsedSecondFrac);
+            return FracCalc.simplifyFraction(multiply(parsedFirstFrac, parsedSecondFrac));
         }
         else if (operand.equals("-")) {
-            return subtract(parsedFirstFrac, parsedSecondFrac);
+            return FracCalc.simplifyFraction(subtract(parsedFirstFrac, parsedSecondFrac));
         }
         else if (operand.equals("/")) {
-            return simplifyFraction(divide(parsedFirstFrac, parsedSecondFrac));
+            return FracCalc.simplifyFraction(divide(parsedFirstFrac, parsedSecondFrac));
         } else {
-            return divide(parsedFirstFrac, parsedSecondFrac);
+            return FracCalc.simplifyFraction(divide(parsedFirstFrac, parsedSecondFrac));
         }
+
 
 
         // TODO: Implement this function to produce the solution to the input
@@ -124,7 +126,6 @@ public class FracCalc {
         // gets improper fractions
         String improperFirstFrac = toImproperFraction(parsedFirstFrac);
         String improperSecondFrac = toImproperFraction(parsedSecondFrac);
-        // 4/5 + 2/3
         // seperates first and second fractions into numerator and denominator
         Scanner seperator = new Scanner(improperFirstFrac);
         seperator.useDelimiter("/");
@@ -158,6 +159,7 @@ public class FracCalc {
         // gets improper fractions
         String improperFirstFrac = toImproperFraction(parsedFirstFrac);
         String improperSecondFrac = toImproperFraction(parsedSecondFrac);
+        String fractionDivision;
         // seperates first and second fractions into numerator and denominator
         Scanner seperator = new Scanner(improperFirstFrac);
         seperator.useDelimiter("/");
@@ -168,7 +170,11 @@ public class FracCalc {
         int secondFracNumerator = seperator.nextInt();
         int secondFracDenominator = seperator.nextInt();
         // TODO: performs division
-        String fractionDivision = (firstFracNumerator*secondFracDenominator) + "/" + (firstFracDenominator*secondFracNumerator);
+        if (firstFracNumerator*secondFracDenominator < 0 && firstFracDenominator*secondFracNumerator < 0) {
+            fractionDivision = (-1*firstFracNumerator*secondFracDenominator) + "/" + (-1*firstFracDenominator*secondFracNumerator);
+        } else {
+            fractionDivision = (firstFracNumerator*secondFracDenominator) + "/" + (firstFracDenominator*secondFracNumerator);
+        }
         return fractionDivision;
 
     }
@@ -189,42 +195,67 @@ public class FracCalc {
         String fractionMultiplication  = (firstFracNumerator*secondFracNumerator) + "/" + (firstFracDenominator*secondFracDenominator);
         return fractionMultiplication;
     }
-    public static int simplifyFraction(String fraction) {
-        Scanner splitter = new Scanner(fraction);
-        splitter.useDelimiter("/");
-        int numerator = splitter.nextInt();
-        int denominator = splitter.nextInt();
-        int gcd = getGCD(numerator, denominator);
-        return gcd;
+    public static String simplifyFraction(String fraction)
+    {
+        // splits fraction into numerator and denominator
+        Scanner seperator = new Scanner(fraction);
+        seperator.useDelimiter("/");
+        int numer = seperator.nextInt();
+        int denom = seperator.nextInt();
+        int greatestCommonDivisor;
+        greatestCommonDivisor = gcd(numer, denom);
+        // making gcd positive just in case
+        greatestCommonDivisor = Math.abs(greatestCommonDivisor);
+        //
+        int numerator = numer / greatestCommonDivisor;
+        int denominator = denom / greatestCommonDivisor;
+
+        if (denominator < 0) {
+            denominator = Math.abs(denominator);
+            numerator = (-1 * numerator);
+        }
+
+        int wholeNum = 0;
+        int leftover = 0;
+        String simplifiedFraction;
+        // checks to make sure it turns into mixed numbers
+        if (numerator > denominator) {
+            wholeNum = numerator / denominator;
+            leftover = numerator - wholeNum * denominator;
+            if (leftover == 0) {
+                simplifiedFraction = "" + wholeNum;
+            } else {
+                simplifiedFraction = wholeNum + "_" + leftover + "/" + denominator;
+            }
+
+        } else if (Math.abs(numerator) > denominator) {
+            wholeNum = numerator / denominator;
+            leftover = (numerator) - wholeNum * denominator;
+            leftover = Math.abs(leftover);
+            if (leftover == 0) {
+                simplifiedFraction = "" + wholeNum;
+            } else {
+                simplifiedFraction = wholeNum + "_" + leftover + "/" + denominator;
+            }
+        } else if (numerator == denominator) {
+            simplifiedFraction = "" + numerator / denominator;
+        } else if (numerator == 0) {
+            simplifiedFraction = "" + 0;
+        }
+        else {
+            simplifiedFraction = numerator + "/" + denominator;
+        }
+        // simplifiedFraction = numerator + "/" + denominator;
+        return simplifiedFraction;
 
     }
-    public static int getGCD(int x, int y) {
-        String xFactors = "";
-        String yFactors = "";
-        // gets factors of x
-        for (int i = 1; i < x; i++) {
-            if (x % i == 0) {
-                xFactors = xFactors + i;
-            }
-        }
-        // gets factors of y
-        for (int i = 1; i < y; i++) {
-            if (y % i == 0) {
-                yFactors = yFactors + i;
-            }
-        }
-        int gcd = 0;
-        for (int i = 1; i < x; i++) {
-            // checks if xFactors is in yFactors
-            if ((yFactors.indexOf(xFactors.charAt(i)) != -1)) {
-                if (xFactors.charAt(i) > gcd) {
-                    gcd = xFactors.charAt(i);
-                }
-            }
-        }
-        return gcd;
-        // checks for common factors between x and y
 
+    public static int gcd(int a, int b)
+    {
+        if (b == 0)
+            return a;
+        return gcd(b, a % b);
+        // checks for common factors between x and y
 
     }
 }
