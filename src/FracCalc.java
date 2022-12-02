@@ -1,5 +1,12 @@
+import jdk.internal.instrumentation.InstrumentationTarget;
+
 import java.util.Scanner;
 
+/**
+ * This class that has produceAnswer, parseExpression, toImproperFraction add, subtract, multiply, divide, simplifyFraction, and gcd methods
+ * This FracCalc class takes fraction expressions and calculates different operations based on what the user inputs
+ * @author Aryaman Gupta
+ */
 public class FracCalc {
 
     public static void main(String[] args)
@@ -27,6 +34,11 @@ public class FracCalc {
     //
     // The function should return the result of the fraction after it has been calculated
     //      e.g. return ==> "1_1/4"
+    /**
+     * produceAnswer method returns the answer to the user's fraction arithmetic
+     * @return produceAnswer returns fraction answer
+     * @param expression fraction expression the user inputs
+    */
     public static String produceAnswer(String expression) {
         // gets operands for Scanner
         Scanner operands = new Scanner(expression);
@@ -59,6 +71,11 @@ public class FracCalc {
 
         // TODO: Implement this function to produce the solution to the input
     }
+    /**
+     * parseFraction method returns the wholeNum, numerator, denominator in final_parsed
+     * @return final_parsed returns the wholeNum, numerator, denominator
+     * @param operand fraction expression the user inputs
+     */
     public static String parseFraction(String operand) {
         Scanner splitter = new Scanner(operand);
         int wholeNum = 0;
@@ -98,6 +115,11 @@ public class FracCalc {
 
 
     }
+    /**
+     * toImproperFraction method takes the parsedFraction with wholeNum, numerator and denominator and then turns it into an improperFraction
+     * @return improperFrac returns the improper Fraction
+     * @param parsedFraction fraction expression the user inputs
+     */
 
     // TODO: Fill in the space below with any helper methods that you think you will need
     public static String toImproperFraction(String parsedFraction) {
@@ -122,6 +144,12 @@ public class FracCalc {
 
 
     }
+    /**
+     * add method takes both Fractions and adds them together making them an improper Fraction
+     * @return fractionSum returns the sum of the 2 fractions
+     * @param parsedFirstFrac the first fraction expression the user inputs
+     * @param parsedSecondFrac the second fraction expression the user inputs
+     */
     public static String add(String parsedFirstFrac, String parsedSecondFrac) {
         // gets improper fractions
         String improperFirstFrac = toImproperFraction(parsedFirstFrac);
@@ -138,6 +166,12 @@ public class FracCalc {
         String fractionSum = (firstFracNumerator*secondFracDenominator + secondFracNumerator*firstFracDenominator) + "/" + (firstFracDenominator*secondFracDenominator);
         return fractionSum;
     }
+    /**
+     * subtract method takes both Fractions and subtracts them making an improper Fraction
+     * @return fractionSubtract returns the difference of the 2 fractions
+     * @param parsedFirstFrac the first fraction expression the user inputs
+     * @param parsedSecondFrac the second fraction expression the user inputs
+     */
     public static String subtract(String parsedFirstFrac, String parsedSecondFrac) {
         // gets improper fractions
         String improperFirstFrac = toImproperFraction(parsedFirstFrac);
@@ -152,9 +186,16 @@ public class FracCalc {
         seperator.useDelimiter("/");
         int secondFracNumerator = seperator.nextInt();
         int secondFracDenominator = seperator.nextInt();
-        String fractionSum = (firstFracNumerator*secondFracDenominator - secondFracNumerator*firstFracDenominator) + "/" + (firstFracDenominator*secondFracDenominator);
-        return fractionSum;
+        String fractionSubtract = (firstFracNumerator*secondFracDenominator - secondFracNumerator*firstFracDenominator) + "/" + (firstFracDenominator*secondFracDenominator);
+        return fractionSubtract;
     }
+    /**
+     * divide method takes both Fractions and divides them making an improper Fraction
+     * @return fractionDivide returns the division of the 2 fractions
+     * @param parsedFirstFrac the first fraction expression the user inputs
+     * @param parsedSecondFrac the second fraction expression the user inputs
+     */
+
     public static String divide(String parsedFirstFrac, String parsedSecondFrac) {
         // gets improper fractions
         String improperFirstFrac = toImproperFraction(parsedFirstFrac);
@@ -178,6 +219,12 @@ public class FracCalc {
         return fractionDivision;
 
     }
+    /**
+     * multiply method takes both Fractions and multiplies them making an improper Fraction
+     * @return fractionMultiplication returns the multiplication of the 2 fractions
+     * @param parsedFirstFrac the first fraction expression the user inputs
+     * @param parsedSecondFrac the second fraction expression the user inputs
+     */
     public static String multiply(String parsedFirstFrac, String parsedSecondFrac) {
         // gets improper fractions
         String improperFirstFrac = toImproperFraction(parsedFirstFrac);
@@ -195,6 +242,11 @@ public class FracCalc {
         String fractionMultiplication  = (firstFracNumerator*secondFracNumerator) + "/" + (firstFracDenominator*secondFracDenominator);
         return fractionMultiplication;
     }
+    /**
+     * simplifyFraction method takes a fraction and reduces it to its simplest form
+     * @return simplifyFraction returns the simplest form of a fraction
+     * @param fraction the first fraction expression the user inputs
+     */
     public static String simplifyFraction(String fraction)
     {
         // splits fraction into numerator and denominator
@@ -249,6 +301,12 @@ public class FracCalc {
         return simplifiedFraction;
 
     }
+    /**
+     * gcd method takes a numerator and denominator and gets the greatest common divisor
+     * @return gcd returns the gcd of the numerator and denominator
+     * @param a the numerator of the fraction expression the user inputted
+     * @param b the denominator of the fraction expression the user inputted
+     */
 
     public static int gcd(int a, int b)
     {
